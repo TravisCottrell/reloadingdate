@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title%}Add bullet{% endblock title%}
+
+{% block content %}<br/>
+  <div class="container">
+    <nav aria-label="breadcrumb" >
+      <ol class="breadcrumb" >
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'guns' %}">Gun List</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'gun' gun.pk %}">{{gun.gun}}</a></li>
+        <li class="breadcrumb-item active">Add Bullet</li>
+      </ol>
+    </nav>
+  </div>
+
+  <div class="container d-flex justify-content-center">
+    <div class="card " style="width: 50rem;">
+      <div class="card-body ">
+        <form method="POST" class="form-group">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="btn btn-primary">Add</button>
+        </form> 
+      </div>  
+    </div><br/>
+  </div>
+{% endblock %}

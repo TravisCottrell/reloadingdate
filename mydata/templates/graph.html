@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title%}Graph{% endblock title%}
+
+{% block content %}
+  <div class="container">
+    <nav aria-label="breadcrumb" >
+      <ol class="breadcrumb" >
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'guns' %}">Gun List</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'gun' gun.pk %}">{{gun.gun}}</a></li>
+        <li class="breadcrumb-item active">Graph</li>
+      </ol>
+    </nav>
+  </div>
+
+<div class="container">
+    {% for b in bullet %}
+      <h1>{{b.bullet}} - {{b.powder}}</h1>                                 
+    {% endfor%}
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+{% endblock content%}
+
+{% block scripts %}
+<script>
+ // <block:setup:1>
+const labels = {{chargelist}}; //django view context
+const data = {
+  labels: labels,
+  datasets: [
+    {
+      label: 'MOA',
+      backgroundColor: 'rgb(211, 211, 211, 0)',
+      borderColor: 'rgb(224, 38, 38)',
+      data: {{moalist}},//django view context
+      yAxisID: 'one'
+    },
+      {
+        label: 'Velocity',
+        backgroundColor: 'rgb(211, 211, 211, 0)',
+        borderColor: 'rgb(128, 0, 255)',
+        data: {{velocitylist}},
+        yAxisID: 'two'
+        
+    }
+  ]
+};
+// </block:setup>
+
+// <block:config:0>
+const config = {
+  type: 'line',
+  data: data,
+  options: {
+    responsive: true,
+    
+    stacked: false,
+    scales: {
+        yAxes : [
+        {
+            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+            display: true,
+            position: 'left',
+            id: 'one',
+            ticks: {beginAtZero: true}
+        },
+        {
+            type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+            display: true,
+            position: 'left',
+            id: 'two',
+            
+            // grid line settings
+            gridLines: {
+                drawOnChartArea: false, // only want the grid lines for one axis to show up
+            },
+        },
+        
+    ]}
+  },
+};
+// </block:config>
+
+var myChart = new Chart(
+  document.getElementById('myChart'),
+  config
+);
+</script>
+{% endblock scripts %}
+
+
