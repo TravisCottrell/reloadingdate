@@ -1,0 +1,66 @@
+body{
+    background: linear-gradient(90deg, rgba(214,2,112,1) 0%, rgba(155,79,150,1) 43%, rgba(0,56,168,1) 100%);
+}
+
+nav.navbar{
+background-color: #00000099;
+}   
+
+nav.navbar a{
+color: white;
+} 
+
+nav.navbar a:hover{
+color: #007bff;
+} 
+
+#bullet-tables-container{
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+
+.card{
+background-color: #00000099;
+}
+
+.card h3{
+color: white;
+}
+
+.card h5{
+color: white;
+}
+
+.card p{
+color: white;
+}
+
+.hidden{
+display:none;
+}
+
+.result{
+max-width:80px; 
+}
+
+ol.breadcrumb{
+background-color: #d3d3d300; 
+}
+
+.breadcrumb-item+.breadcrumb-item::before{
+color: white;
+}
+
+ol.breadcrumb a{
+color: white;  
+}
+
+ol.breadcrumb a:hover{
+color: black;  
+}
+
+li.breadcrumb-item.active{
+color: black;
+}

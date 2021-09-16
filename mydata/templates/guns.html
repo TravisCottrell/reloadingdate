@@ -3,10 +3,10 @@
 
 {% block content %}<br/>
   <div class="container">
-    <nav aria-label="breadcrumb" >
-      <ol class="breadcrumb" >
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
         <li class="breadcrumb-item"> <a href="{% url 'home' %}">Home</a></li>
-        <li class="breadcrumb-item active" >Gun List</li>
+        <li class="breadcrumb-item active">Gun List</li>
       </ol>
     </nav>
   </div>
@@ -15,7 +15,7 @@
     <div class="card " style="width: 40rem;">
       <div class="card-body ">
         <div>
-          <h2 class="card-title d-flex justify-content-center">Guns </h2>
+          <h2 class="card-title d-flex justify-content-center" style="color: white;">Guns </h2>
           <a class="btn btn-secondary btn-sm  d-flex justify-content-center" href="{% url 'add_gun' %}">add gun</a>
         </div><br/>
         {% for gun in object_list %}
