@@ -3,10 +3,6 @@
 
 {% comment %} 
   TO DO:
-  -add c.o.l to bullet model
-  -add 0 of land length to bullet model
-  -add land length offset
-  -add primer to bullet model
   
   -add ability to upload photos related to the data 
 {% endcomment %}
@@ -22,12 +18,14 @@
     </nav>
   </div>
 
-  <div class="container" id="bullet-tables"><br/>
+<div id="bullet-tables-container">
+  <div id="bullet-tables"><br/>
       <h1>{{gun.gun}}</h1>
       <div>
         <a class="btn btn-secondary btn-sm" href="{% url 'add_bullet' gun.pk%}">add bullet</a>
       </div><br/>
   </div>
+</div>
 {% endblock %}
 
 {% block scripts %}   
@@ -67,31 +65,32 @@
 
   //build a bullet table
   function addTable(bullet){
-      var table =  `<div class="card" style="width: 55rem;">
+      var table =  `<div class="card" style="width: 70rem;">
                     <div class="card-body">
                       <div class="container-fluid">
-                        <div class="row border border-secondary">
-                        <div class="col-md ">
-                          <h3 class="card-title">${bullet.bullet}</h3>
-                        </div>
-                        </div>
+                      <h3 class="card-title">${bullet.bullet}</h3>
                         <div class="row border border-secondary">
                           <div class="col-md-3 border-right border-secondary">
-                            <p>Powder: ${bullet.powder}</p>
+                          <h5>Powder:</h5>
+                            <p> ${bullet.powder}</p>
                           </div>
                           <div class="col-md-6 border-right border-secondary">
-                            <p>Primer: ${bullet.primer}</p>
+                            <h5>Primer:</h5>
+                            <p> ${bullet.primer}</p>
                           </div>
                           <div class="col-md border-right border-secondary">
-                            <p>O.A.C.L: ${bullet.coal}"</p>
+                            <h5>O.A.C.L:</h5>
+                            <p> ${bullet.coal}"</p>
                           </div>
                         </div>
                         <div class="row border border-secondary">
                           <div class="col-md-auto border-right border-secondary">
-                            <p>Land Length: ${bullet.landTotal}"</p>
+                            <h5>Land Length:</h5>
+                            <p> ${bullet.landTotal}"</p>
                           </div>
                           <div class="col-md-auto border-right border-secondary">
-                            <p>Land Offset: ${bullet.landOffset}"</p>
+                            <h5>Land Offset:</h5>
+                            <p> ${bullet.landOffset}"</p>
                           </div>
                         </div>
                       </div><br/>
@@ -109,7 +108,7 @@
                             <th class="col" scope="col">3</th>
                             <th class="col" scope="col">SD</th>
                             <th class="col" scope="col">ES</th>
-                            <th class="col-3" scope="col"></th>
+                            <th class="col-2" scope="col"></th>
                           </tr>
                         </thead>
                         <tbody id="bullet-table-${bullet.pk}">
@@ -189,7 +188,7 @@
                 `
                     <td class="col" id="moa-${result.pk}" contenteditable="false">${sd}</td>
                     <td class="col" id="moa-${result.pk}" contenteditable="false">${es}</td>
-                    <td class="col-3">
+                    <td class="col-2">
                       
                         <button class="btn btn-sm btn-danger" data-resultid=${result.pk} id="delete-${result.pk}">Delete</button>
                         <button class="btn btn-sm btn-info"  data-resultid=${result.pk} id="save-${result.pk}">Save</button>

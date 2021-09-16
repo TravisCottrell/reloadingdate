@@ -26,22 +26,24 @@
 {% block scripts %}
 <script>
  // <block:setup:1>
-const labels = {{chargelist}}; //django view context
+const labels = {{chargelist}}; //data passed from django views.py context
 const data = {
   labels: labels,
   datasets: [
     {
       label: 'MOA',
-      backgroundColor: 'rgb(211, 211, 211, 0)',
-      borderColor: 'rgb(224, 38, 38)',
-      data: {{moalist}},//django view context
+      fill: false,
+      backgroundColor: 'rgb(0, 0, 0, 1)',
+      borderColor: '#54d602',
+      data: {{moalist}},//data passed from django views.py context
       yAxisID: 'one'
     },
       {
         label: 'Velocity',
-        backgroundColor: 'rgb(211, 211, 211, 0)',
-        borderColor: 'rgb(128, 0, 255)',
-        data: {{velocitylist}},
+        fill: false,
+        backgroundColor: 'rgb(211, 211, 211, 1)',
+        borderColor: 'rgb(0, 0, 0)',
+        data: {{velocitylist}},// data passed from django views.py context
         yAxisID: 'two'
         
     }
@@ -55,30 +57,56 @@ const config = {
   data: data,
   options: {
     responsive: true,
-    
     stacked: false,
+    legend: {
+      labels: {
+          fontColor: "white",
+      }
+    },
     scales: {
-        yAxes : [
+      grid: [{              
+        color: "white",
+      }],
+
+      xAxes: [{  
+        gridLines: {
+          color: 'white',
+        },            
+        ticks: {
+          fontColor: "white",
+        }
+      }],
+
+      yAxes: [
         {
             type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
             display: true,
             position: 'left',
             id: 'one',
-            ticks: {beginAtZero: true}
+            gridLines: {
+              color: 'white',
+            },
+            ticks: {
+              beginAtZero: true,
+              fontColor: "white",
+            }
         },
         {
             type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
             display: true,
             position: 'left',
             id: 'two',
-            
-            // grid line settings
             gridLines: {
-                drawOnChartArea: false, // only want the grid lines for one axis to show up
+              color: 'white',
+              drawOnChartArea: false, // remove the y axis lines in the grid for this set
             },
+
+            ticks: {
+              fontColor: "white",
+            }
         },
-        
-    ]}
+      ]
+    }
   },
 };
 // </block:config>
