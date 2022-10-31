@@ -13,25 +13,29 @@ class HomeView(ListView):
     template_name = "home.html"
 
 
-class GunsView(ListView):
-    model = Gun
-    template_name = "guns.html"
 
 
-@login_required
+#@login_required
+def gunsview(request):
+    guns = Gun.objects.all()
+    
+    context = {'guns': guns}
+    return render(request, 'guns.html', context)
+
+#@login_required
 def gunview(request, gun_id):
     """Show a single gun and all its info."""
     #guns = Gun.objects.filter(owner=request.user, id=gun_id).prefetch_related('bullets__results__velocity')
     gun = Gun.objects.get(pk=gun_id)
     # Make sure the gun belongs to the current user.
     
-    if gun.owner != request.user:
-        raise Http404
+    # if gun.owner != request.user:
+    #     raise Http404
     
     context = {'gun': gun}  
     return render(request, 'gun.html', context)
 
-@login_required
+#@login_required
 def AddGun(request):
     """Add a new gun."""
     if request.method != 'POST':
@@ -42,13 +46,13 @@ def AddGun(request):
         form = GunForm(request.POST)
         if form.is_valid():
             new_gun = form.save(commit=False)
-            new_gun.owner = request.user
+            #new_gun.owner = request.user
             form.save()
             return HttpResponseRedirect(reverse('guns'))
     context = {'form': form}
     return render(request, 'add_gun.html', context)
 
-@login_required
+#@login_required
 def addbullet(request, gun_id):
     """Add a new bullet."""
     gun = Gun.objects.get(id=gun_id)
@@ -66,7 +70,7 @@ def addbullet(request, gun_id):
     context = {'form': form,'gun':gun}
     return render(request, 'add_bullet.html', context)
 
-@login_required
+#@login_required
 def edit_bullet(request, bullet_id):
     """Edit an existing result."""
     bullet = Bullet.objects.get(id=bullet_id)
@@ -83,7 +87,7 @@ def edit_bullet(request, bullet_id):
     context = {'bullet': bullet, 'gun': gun, 'form': form}
     return render(request, 'edit_bullet.html', context)
 
-@login_required
+#@login_required
 def delete_bullet(request, bullet_id):
     """delete an existing result."""
     bullet = Bullet.objects.get(id=bullet_id)
@@ -91,7 +95,7 @@ def delete_bullet(request, bullet_id):
     gun = bullet.gun
     return HttpResponseRedirect(reverse('gun', args=[gun.id]))
 
-@login_required
+#@login_required
 def view_graph(request, bullet_id):
     """Show a single bullet graph."""
     

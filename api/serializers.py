@@ -51,4 +51,5 @@ class GunSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Gun
-        fields = ['pk', 'gun', 'date_added', 'owner', 'bullets']
+        fields = ['pk', 'gun', 'date_added', 'bullets']
+        #fields = ['pk', 'gun', 'date_added', 'owner', 'bullets']

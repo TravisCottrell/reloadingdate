@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_protect
 from mydata.models import Gun, Bullet, TestResult, Velocity
 from api.serializers import GunSerializer, BulletSerializer, TestResultSerializer, VelocitySerializer 
 
-@login_required
+#@login_required
 @api_view(['GET','POST'])
 def guns_list(request):
     """
@@ -29,14 +29,15 @@ def guns_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@login_required
+#@login_required
 @api_view(['GET', 'PUT', 'DELETE'])
 def gun_detail(request, pk):
     """
     Retrieve, update or delete a gun.
     """
     try:
-        gun = Gun.objects.filter(owner=request.user, id=pk).prefetch_related('bullets__results__velocity')
+        gun = Gun.objects.filter(id=pk).prefetch_related('bullets__results__velocity')
+        #gun = Gun.objects.filter(owner=request.user, id=pk).prefetch_related('bullets__results__velocity')
         #gun = Gun.objects.get(owner=request.user, id=pk)
     except Gun.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -46,7 +47,7 @@ def gun_detail(request, pk):
         return Response(serializer.data)
 
 
-@login_required
+#@login_required
 @api_view(['POST'])
 def result_create(request, pk):
     """
@@ -73,7 +74,7 @@ def result_create(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@login_required
+#@login_required
 @api_view(['PUT'])
 def result_update(request, pk):
     """
@@ -88,7 +89,7 @@ def result_update(request, pk):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@login_required    
+#@login_required    
 @api_view(['DELETE'])
 def result_delete(request, pk):
     """
